@@ -52,9 +52,14 @@ export default function AppointmentForm({
         
         if (error) throw error;
       } else {
+        const user = await supabase.auth.getUser();
+        if (!user.data.user) {
+          throw new Error('User not authenticated');
+        }
+        const userId = user.data.user.id;
         const { error } = await supabase
           .from('appointments')
-          .insert([appointmentData]);
+          .insert([{ ...appointmentData, user_id: userId }]);
         
         if (error) throw error;
       }
@@ -147,7 +152,7 @@ export default function AppointmentForm({
                 <option value="">Select Treatment</option>
                 {treatments.map((treatment) => (
                   <option key={treatment.id} value={treatment.id}>
-                    {treatment.name} - ${treatment.price}
+                    {treatment.name} - ₹{treatment.price}
                   </option>
                 ))}
               </select>

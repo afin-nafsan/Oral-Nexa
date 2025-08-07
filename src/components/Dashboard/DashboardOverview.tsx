@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Users, Calendar, DollarSign, Activity, TrendingUp, Clock, FileText } from 'lucide-react';
 import { LineChart, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { usePatients, useAppointments, useExpenses, useTreatments, useStaff, usePrescriptions } from '../../hooks/useSupabase';
 import { format, isToday, isThisMonth, parseISO } from 'date-fns';
+import { supabase } from '../../lib/supabase';
 
 export default function DashboardOverview() {
   const { patients } = usePatients();
@@ -20,6 +21,11 @@ export default function DashboardOverview() {
     const date = a.appointment_date ? new Date(a.appointment_date) : null;
     return date && isToday(date) && a.status !== 'cancelled';
   });
+
+  // Daily Revenue (sum of expenses for today)
+  const dailyRevenue = expenses
+    .filter(e => e.expense_date && isToday(new Date(e.expense_date)))
+    .reduce((sum, e) => sum + (e.amount || 0), 0);
 
   // Monthly Revenue (sum of expenses for this month)
   const monthlyRevenue = expenses
@@ -77,8 +83,90 @@ export default function DashboardOverview() {
   // Total Prescriptions
   const totalPrescriptions = prescriptions.length;
 
+  const [showCloseModal, setShowCloseModal] = useState(false);
+  const [closing, setClosing] = useState(false);
+  const [closeSuccess, setCloseSuccess] = useState(false);
+  const [closeError, setCloseError] = useState('');
+
+  // Handler for closing sales
+  const handleCloseSales = async () => {
+    setClosing(true);
+    setCloseError('');
+    try {
+      const today = new Date();
+      const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59, 999);
+      // Close expenses
+      const { error: expenseError } = await supabase
+        .from('expenses')
+        .update({ closed_at: new Date().toISOString() })
+        .is('closed_at', null)
+        .gte('expense_date', startOfDay.toISOString())
+        .lte('expense_date', endOfDay.toISOString());
+      // Close appointments
+      const { error: apptError } = await supabase
+        .from('appointments')
+        .update({ closed_at: new Date().toISOString() })
+        .is('closed_at', null)
+        .gte('appointment_date', startOfDay.toISOString())
+        .lte('appointment_date', endOfDay.toISOString());
+      if (expenseError || apptError) throw expenseError || apptError;
+      setCloseSuccess(true);
+      setShowCloseModal(false);
+      if (typeof window !== 'undefined') window.location.reload();
+    } catch (err: any) {
+      setCloseError(err.message || 'Failed to close sales.');
+    } finally {
+      setClosing(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
+      <div className="flex justify-end mb-4">
+        <button
+          className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-semibold shadow transition-colors"
+          onClick={() => setShowCloseModal(true)}
+        >
+          Close Sales
+        </button>
+      </div>
+      {showCloseModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl shadow-2xl w-full max-w-md p-8">
+            <h2 className="text-xl font-bold mb-4 text-gray-900">Confirm Close Sales</h2>
+            <p className="mb-6 text-gray-700">Are you sure you want to close today's sales? <b>This action cannot be undone.</b></p>
+            <div className="flex justify-end gap-4">
+              <button
+                className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-gray-800"
+                onClick={() => setShowCloseModal(false)}
+                disabled={closing}
+              >
+                Cancel
+              </button>
+              <button
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold"
+                onClick={handleCloseSales}
+                disabled={closing}
+              >
+                {closing ? 'Closing...' : 'Yes, Close Sales'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {closeSuccess && (
+        <div className="fixed top-6 right-6 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+          Sales closed for today. This cannot be undone.
+          <button className="ml-4 text-white font-bold" onClick={() => setCloseSuccess(false)}>&times;</button>
+        </div>
+      )}
+      {closeError && (
+        <div className="fixed top-6 right-6 bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+          {closeError}
+          <button className="ml-4 text-white font-bold" onClick={() => setCloseError('')}>&times;</button>
+        </div>
+      )}
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         {/* Total Patients */}
@@ -129,12 +217,12 @@ export default function DashboardOverview() {
             </div>
           </div>
         </div>
-        {/* Monthly Revenue */}
+        {/* Daily Revenue */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500">Monthly Revenue</p>
-              <p className="text-2xl font-bold text-gray-900 mt-2">${monthlyRevenue.toLocaleString()}</p>
+              <p className="text-sm font-medium text-gray-500">Daily Revenue</p>
+              <p className="text-2xl font-bold text-gray-900 mt-2">₹{dailyRevenue.toLocaleString()}</p>
             </div>
             <div className="bg-purple-100 p-3 rounded-lg">
               <DollarSign className="h-6 w-6 text-purple-600" />

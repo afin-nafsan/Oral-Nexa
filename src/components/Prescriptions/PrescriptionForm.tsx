@@ -52,13 +52,14 @@ export default function PrescriptionForm({
         if (error) throw error;
       } else {
         console.log('About to insert prescription', formData);
+        const user = await supabase.auth.getUser();
+        if (!user.data.user) {
+          throw new Error('User not authenticated');
+        }
+        const userId = user.data.user.id;
         const { data, error } = await supabase
           .from('prescriptions')
-          .insert([{
-            patient_id: formData.patient_id,
-            staff_id: formData.staff_id,
-            instructions: formData.instructions,
-          }])
+          .insert([{ patient_id: formData.patient_id, staff_id: formData.staff_id, instructions: formData.instructions, user_id: userId }])
           .select('id')
           .single();
         console.log('Insert result:', data, error);

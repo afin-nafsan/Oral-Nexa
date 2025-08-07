@@ -34,7 +34,12 @@ export default function StaffForm({ onClose, onSave }: StaffFormProps) {
       if (!formData.first_name.trim() || !formData.last_name.trim() || !formData.email.trim()) {
         throw new Error('First name, last name, and email are required');
       }
-      const { error } = await supabase.from('staff').insert([formData]);
+      const user = await supabase.auth.getUser();
+      if (!user.data.user) {
+        throw new Error('User not authenticated');
+      }
+      const userId = user.data.user.id;
+      const { error } = await supabase.from('staff').insert([{ ...formData, user_id: userId }]);
       if (error) throw error;
       onSave();
     } catch (err: any) {

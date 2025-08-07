@@ -420,7 +420,7 @@ export default function LandingPage() {
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
                   <p className="text-gray-600 mb-4">{plan.description}</p>
                   <div className="flex items-baseline justify-center">
-                    <span className="text-5xl font-bold text-gray-900">${plan.price}</span>
+                    <span className="text-5xl font-bold text-gray-900">₹{plan.price}</span>
                     <span className="text-gray-600 ml-2">/{plan.period}</span>
                   </div>
                 </div>

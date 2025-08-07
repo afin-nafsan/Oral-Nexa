@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Save } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
+import { usePatients } from '../../hooks/useSupabase';
 
 interface ExpenseFormProps {
   expense?: any;
@@ -9,7 +10,11 @@ interface ExpenseFormProps {
 }
 
 export default function ExpenseForm({ expense, onClose, onSave }: ExpenseFormProps) {
+  const { patients } = usePatients();
   const [formData, setFormData] = useState({
+    type: expense?.type || 'debit',
+    patient_id: expense?.patient_id || '',
+    transaction_id: expense?.transaction_id || '',
     category: expense?.category || '',
     description: expense?.description || '',
     amount: expense?.amount || '',
@@ -32,6 +37,7 @@ export default function ExpenseForm({ expense, onClose, onSave }: ExpenseFormPro
         ...formData,
         amount: parseFloat(formData.amount),
         expense_date: new Date(formData.expense_date).toISOString(),
+        patient_id: formData.patient_id || null,
       };
 
       if (expense) {
@@ -42,9 +48,14 @@ export default function ExpenseForm({ expense, onClose, onSave }: ExpenseFormPro
         
         if (error) throw error;
       } else {
+        const user = await supabase.auth.getUser();
+        if (!user.data.user) {
+          throw new Error('User not authenticated');
+        }
+        const userId = user.data.user.id;
         const { error } = await supabase
           .from('expenses')
-          .insert([expenseData]);
+          .insert([{ ...expenseData, user_id: userId }]);
         
         if (error) throw error;
       }
@@ -69,7 +80,7 @@ export default function ExpenseForm({ expense, onClose, onSave }: ExpenseFormPro
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h2 className="text-xl font-semibold text-gray-900">
-            {expense ? 'Edit Expense' : 'Add New Expense'}
+            {expense ? 'Edit Transaction' : 'Add New Transaction'}
           </h2>
           <button
             onClick={onClose}
@@ -82,9 +93,62 @@ export default function ExpenseForm({ expense, onClose, onSave }: ExpenseFormPro
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Category *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Transaction Type *</label>
+              <select
+                name="type"
+                value={formData.type}
+                onChange={handleChange}
+                required
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="credit">Credit (Received)</option>
+                <option value="debit">Debit (Paid)</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Payment Method *</label>
+              <select
+                name="payment_method"
+                value={formData.payment_method}
+                onChange={handleChange}
+                required
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="cash">Cash</option>
+                <option value="upi">UPI</option>
+                <option value="credit_card">Credit Card</option>
+                <option value="debit_card">Debit Card</option>
+                <option value="bank_transfer">Bank Transfer</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Patient (optional)</label>
+              <select
+                name="patient_id"
+                value={formData.patient_id}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="">-- None --</option>
+                {patients.map((p) => (
+                  <option key={p.id} value={p.id}>{p.first_name} {p.last_name}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Transaction ID (for UPI/Card/Bank)</label>
+              <input
+                type="text"
+                name="transaction_id"
+                value={formData.transaction_id}
+                onChange={handleChange}
+                placeholder="Enter transaction/reference ID"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Category *</label>
               <select
                 name="category"
                 value={formData.category}
@@ -102,13 +166,11 @@ export default function ExpenseForm({ expense, onClose, onSave }: ExpenseFormPro
                 <option value="marketing">Marketing</option>
                 <option value="software">Software</option>
                 <option value="other">Other</option>
+                <option value="income">Income</option>
               </select>
             </div>
-
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Amount *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Amount *</label>
               <input
                 type="number"
                 name="amount"
@@ -121,11 +183,8 @@ export default function ExpenseForm({ expense, onClose, onSave }: ExpenseFormPro
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
-
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Date *
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Date *</label>
               <input
                 type="date"
                 name="expense_date"
@@ -135,30 +194,8 @@ export default function ExpenseForm({ expense, onClose, onSave }: ExpenseFormPro
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
-
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Payment Method
-              </label>
-              <select
-                name="payment_method"
-                value={formData.payment_method}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              >
-                <option value="cash">Cash</option>
-                <option value="credit_card">Credit Card</option>
-                <option value="debit_card">Debit Card</option>
-                <option value="check">Check</option>
-                <option value="bank_transfer">Bank Transfer</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Vendor/Supplier
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Vendor/Supplier</label>
               <input
                 type="text"
                 name="vendor"
@@ -168,11 +205,8 @@ export default function ExpenseForm({ expense, onClose, onSave }: ExpenseFormPro
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
-
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Receipt Number
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Receipt Number</label>
               <input
                 type="text"
                 name="receipt_number"
@@ -186,15 +220,14 @@ export default function ExpenseForm({ expense, onClose, onSave }: ExpenseFormPro
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Description *
+              Description
             </label>
             <input
               type="text"
               name="description"
               value={formData.description}
               onChange={handleChange}
-              required
-              placeholder="Brief description of the expense"
+              placeholder="Brief description of the transaction"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -227,7 +260,7 @@ export default function ExpenseForm({ expense, onClose, onSave }: ExpenseFormPro
               className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center space-x-2 transition-colors disabled:opacity-50"
             >
               <Save className="h-4 w-4" />
-              <span>{loading ? 'Saving...' : 'Save Expense'}</span>
+              <span>{loading ? 'Saving...' : 'Save Transaction'}</span>
             </button>
           </div>
         </form>

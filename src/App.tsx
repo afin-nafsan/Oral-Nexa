@@ -9,11 +9,27 @@ import PrescriptionManagement from './components/Prescriptions/PrescriptionManag
 import ExpenseManagement from './components/Expenses/ExpenseManagement';
 import TreatmentManagement from './components/Treatments/TreatmentManagement';
 import StaffManagement from './components/Staff/StaffManagement';
+import SettingsManagement from './components/Settings/SettingsManagement';
 import { supabase } from './lib/supabase';
 import Login from './components/Auth/Login';
 import LandingPage from './components/LandingPage';
+import ReportSection from './components/Reports/ReportSection';
+import { SettingsProvider } from './contexts/SettingsContext';
 
 function DashboardApp({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (tab: string) => void }) {
+  // Add event listener for search navigation
+  useEffect(() => {
+    const handleNavigateToTab = (event: CustomEvent) => {
+      setActiveTab(event.detail);
+    };
+
+    window.addEventListener('navigateToTab', handleNavigateToTab as EventListener);
+    
+    return () => {
+      window.removeEventListener('navigateToTab', handleNavigateToTab as EventListener);
+    };
+  }, [setActiveTab]);
+
   const renderContent = () => {
     switch (activeTab) {
       case 'dashboard':
@@ -31,23 +47,9 @@ function DashboardApp({ activeTab, setActiveTab }: { activeTab: string, setActiv
       case 'staff':
         return <StaffManagement />;
       case 'reports':
-        return (
-          <div className="flex items-center justify-center h-64">
-            <div className="text-center">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Reports & Analytics</h3>
-              <p className="text-gray-500">Coming soon - Detailed reports and analytics</p>
-            </div>
-          </div>
-        );
+        return <ReportSection />;
       case 'settings':
-        return (
-          <div className="flex items-center justify-center h-64">
-            <div className="text-center">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Settings</h3>
-              <p className="text-gray-500">Coming soon - System settings and configuration</p>
-            </div>
-          </div>
-        );
+        return <SettingsManagement />;
       default:
         return <DashboardOverview />;
     }
@@ -62,7 +64,7 @@ function DashboardApp({ activeTab, setActiveTab }: { activeTab: string, setActiv
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         <Header activeTab={activeTab} />
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto p-6 bg-gray-50">
           {renderContent()}
         </main>
       </div>
@@ -108,8 +110,10 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <Router>
-      <AppRoutes />
-    </Router>
+    <SettingsProvider>
+      <Router>
+        <AppRoutes />
+      </Router>
+    </SettingsProvider>
   );
 }

@@ -4,6 +4,7 @@ import { usePrescriptions, usePatients, useStaff } from '../../hooks/useSupabase
 import PrescriptionForm from './PrescriptionForm';
 import { format } from 'date-fns';
 import { supabase } from '../../lib/supabase';
+import { useSettings } from '../../contexts/SettingsContext';
 // @ts-ignore
 import jsPDF from 'jspdf';
 
@@ -11,6 +12,7 @@ export default function PrescriptionManagement() {
   const { prescriptions, loading, refetch } = usePrescriptions();
   const { patients } = usePatients();
   const { staff } = useStaff();
+  const { practiceInfo } = useSettings();
   const [showForm, setShowForm] = useState(false);
   const [selectedPrescription, setSelectedPrescription] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -47,18 +49,60 @@ export default function PrescriptionManagement() {
   const handlePrint = (prescription: any) => {
     const doc = new jsPDF();
     let y = 15;
-    doc.setFontSize(18);
-    doc.text('Prescription', 105, y, { align: 'center' });
+    
+    // Header with practice information
+    doc.setFontSize(16);
+    doc.setFont(undefined, 'bold');
+    doc.text(practiceInfo.name, 105, y, { align: 'center' });
+    y += 8;
+    
+    doc.setFontSize(10);
+    doc.setFont(undefined, 'normal');
+    doc.text(practiceInfo.address, 105, y, { align: 'center' });
+    y += 6;
+    
+    doc.text(`Phone: ${practiceInfo.phone} | Email: ${practiceInfo.email}`, 105, y, { align: 'center' });
+    y += 6;
+    
+    if (practiceInfo.website) {
+      doc.text(`Website: ${practiceInfo.website}`, 105, y, { align: 'center' });
+      y += 6;
+    }
+    
+    if (practiceInfo.license) {
+      doc.text(`License: ${practiceInfo.license}`, 105, y, { align: 'center' });
+      y += 6;
+    }
+    
+    // Divider line
+    y += 5;
+    doc.line(15, y, 195, y);
     y += 10;
-    doc.setFontSize(12);
+    
+    // Prescription title
+    doc.setFontSize(14);
+    doc.setFont(undefined, 'bold');
+    doc.text('PRESCRIPTION', 105, y, { align: 'center' });
+    y += 10;
+    
+    // Prescription details
+    doc.setFontSize(11);
+    doc.setFont(undefined, 'normal');
     doc.text(`Date: ${prescription.prescribed_date ? new Date(prescription.prescribed_date).toLocaleDateString() : ''}`, 15, y);
-    y += 10;
+    y += 8;
+    
     doc.text(`Patient: ${prescription.patients ? `${prescription.patients.first_name} ${prescription.patients.last_name}` : 'Unknown'}`, 15, y);
     y += 8;
+    
     doc.text(`Doctor: ${prescription.staff ? `Dr. ${prescription.staff.first_name} ${prescription.staff.last_name}` : 'Unassigned'}`, 15, y);
     y += 8;
+    
+    // Medicines section
+    doc.setFont(undefined, 'bold');
     doc.text('Medicines:', 15, y);
     y += 8;
+    
+    doc.setFont(undefined, 'normal');
     if (prescription.prescription_medicines && prescription.prescription_medicines.length > 0) {
       prescription.prescription_medicines.forEach((med: any, idx: number) => {
         doc.text(
@@ -69,15 +113,36 @@ export default function PrescriptionManagement() {
         y += 7;
       });
     } else {
-      doc.text('No medicines', 20, y);
+      doc.text('No medicines prescribed', 20, y);
       y += 7;
     }
+    
+    // Instructions
     if (prescription.instructions) {
       y += 5;
+      doc.setFont(undefined, 'bold');
       doc.text('Instructions:', 15, y);
       y += 7;
-      doc.text(doc.splitTextToSize(prescription.instructions, 170), 20, y);
+      doc.setFont(undefined, 'normal');
+      const instructions = doc.splitTextToSize(prescription.instructions, 170);
+      doc.text(instructions, 20, y);
+      y += instructions.length * 5;
     }
+    
+    // Footer
+    y += 10;
+    doc.line(15, y, 195, y);
+    y += 8;
+    
+    doc.setFontSize(9);
+    doc.text('Doctor\'s Signature: _________________', 15, y);
+    doc.text('Date: _________________', 120, y);
+    y += 8;
+    
+    doc.text('Patient\'s Signature: _________________', 15, y);
+    doc.text('Date: _________________', 120, y);
+    
+    // Save the PDF
     doc.save(`prescription_${prescription.id.slice(0, 8)}.pdf`);
   };
 

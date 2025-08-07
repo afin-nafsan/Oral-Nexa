@@ -36,7 +36,12 @@ export default function TreatmentForm({ treatment, onClose, onSave }: TreatmentF
         const { error } = await supabase.from('treatments').update(formData).eq('id', treatment.id);
         if (error) throw error;
       } else {
-        const { error } = await supabase.from('treatments').insert([formData]);
+        const user = await supabase.auth.getUser();
+        if (!user.data.user) {
+          throw new Error('User not authenticated');
+        }
+        const userId = user.data.user.id;
+        const { error } = await supabase.from('treatments').insert([{ ...formData, user_id: userId }]);
         if (error) throw error;
       }
       onSave();
@@ -105,7 +110,7 @@ export default function TreatmentForm({ treatment, onClose, onSave }: TreatmentF
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Price ($)</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Price (₹)</label>
             <input
               type="number"
               name="price"

@@ -85,6 +85,7 @@ export type Database = {
           vendor?: string;
           notes?: string;
           created_at: string;
+          closed_at?: string | null;
         };
         Insert: Omit<Database['public']['Tables']['expenses']['Row'], 'id' | 'created_at'>;
         Update: Partial<Database['public']['Tables']['expenses']['Insert']>;
