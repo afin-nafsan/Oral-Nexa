@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import { Users, Calendar, DollarSign, Activity, TrendingUp, Clock, FileText } from 'lucide-react';
-import { LineChart, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { usePatients, useAppointments, useExpenses, useTreatments, useStaff, usePrescriptions } from '../../hooks/useSupabase';
-import { format, isToday, isThisMonth, parseISO } from 'date-fns';
+import { useState } from 'react';
+import { Users, Calendar, DollarSign, Activity, Clock, FileText } from 'lucide-react';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { useAppointments, useExpenses, usePatients, usePrescriptions, useStaff } from '../../hooks/useSupabase';
+import { format, isToday } from 'date-fns';
 import { supabase } from '../../lib/supabase';
 
 export default function DashboardOverview() {
   const { patients } = usePatients();
   const { appointments } = useAppointments();
   const { expenses } = useExpenses();
-  const { treatments } = useTreatments();
   const { staff } = useStaff();
   const { prescriptions } = usePrescriptions();
 
@@ -22,15 +21,22 @@ export default function DashboardOverview() {
     return date && isToday(date) && a.status !== 'cancelled';
   });
 
-  // Daily Revenue (sum of expenses for today)
-  const dailyRevenue = expenses
-    .filter(e => e.expense_date && isToday(new Date(e.expense_date)))
+  // Daily Net Revenue = credits (patient payments) - debits (expenses)
+  const dailyCredits = expenses
+    .filter(e => e.expense_date && isToday(new Date(e.expense_date)) && e.type === 'credit')
     .reduce((sum, e) => sum + (e.amount || 0), 0);
+  const dailyDebits = expenses
+    .filter(e => e.expense_date && isToday(new Date(e.expense_date)) && e.type === 'debit')
+    .reduce((sum, e) => sum + (e.amount || 0), 0);
+  const dailyRevenue = dailyCredits - dailyDebits;
 
-  // Monthly Revenue (sum of expenses for this month)
-  const monthlyRevenue = expenses
-    .filter(e => e.expense_date && isThisMonth(new Date(e.expense_date)))
-    .reduce((sum, e) => sum + (e.amount || 0), 0);
+  // Monthly net revenue available if needed elsewhere later
+  // const monthlyCredits = expenses
+  //   .filter(e => e.expense_date && isThisMonth(new Date(e.expense_date)) && e.type === 'credit')
+  //   .reduce((sum, e) => sum + (e.amount || 0), 0);
+  // const monthlyDebits = expenses
+  //   .filter(e => e.expense_date && isThisMonth(new Date(e.expense_date)) && e.type === 'debit')
+  //   .reduce((sum, e) => sum + (e.amount || 0), 0);
 
   // Treatments Done (exclude cancelled)
   const treatmentsDone = appointments.filter(a => a.status !== 'cancelled').length;
@@ -42,12 +48,19 @@ export default function DashboardOverview() {
     d.setMonth(d.getMonth() - (5 - i));
     const month = months[d.getMonth()];
     const year = d.getFullYear();
-    const revenue = expenses
+    const monthCredits = expenses
       .filter(e => {
         const date = e.expense_date ? new Date(e.expense_date) : null;
-        return date && date.getMonth() === d.getMonth() && date.getFullYear() === year;
+        return date && date.getMonth() === d.getMonth() && date.getFullYear() === year && e.type === 'credit';
       })
       .reduce((sum, e) => sum + (e.amount || 0), 0);
+    const monthDebits = expenses
+      .filter(e => {
+        const date = e.expense_date ? new Date(e.expense_date) : null;
+        return date && date.getMonth() === d.getMonth() && date.getFullYear() === year && e.type === 'debit';
+      })
+      .reduce((sum, e) => sum + (e.amount || 0), 0);
+    const revenue = monthCredits - monthDebits;
     const appts = appointments
       .filter(a => {
         const date = a.appointment_date ? new Date(a.appointment_date) : null;
@@ -217,12 +230,14 @@ export default function DashboardOverview() {
             </div>
           </div>
         </div>
-        {/* Daily Revenue */}
+        {/* Daily Net Revenue */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500">Daily Revenue</p>
-              <p className="text-2xl font-bold text-gray-900 mt-2">₹{dailyRevenue.toLocaleString()}</p>
+              <p className="text-sm font-medium text-gray-500">Daily Revenue (Net)</p>
+              <p className={`text-2xl font-bold mt-2 ${dailyRevenue < 0 ? 'text-red-600' : 'text-gray-900'}`}>
+                {dailyRevenue < 0 ? '-' : ''}₹{Math.abs(dailyRevenue).toLocaleString()}
+              </p>
             </div>
             <div className="bg-purple-100 p-3 rounded-lg">
               <DollarSign className="h-6 w-6 text-purple-600" />
