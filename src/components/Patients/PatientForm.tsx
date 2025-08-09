@@ -50,19 +50,22 @@ export default function PatientForm({ patient, onClose, onSave }: PatientFormPro
       };
 
       if (patient) {
-        // Update existing patient
+        // Update existing patient (RLS ensures ownership)
         const { error } = await supabase
           .from('patients')
           .update(submitData)
           .eq('id', patient.id);
-        
         if (error) throw error;
       } else {
-        // Create new patient
-        const { data, error } = await supabase
+        // Create new patient with current user's ownership
+        const user = await supabase.auth.getUser();
+        if (!user.data.user) {
+          throw new Error('User not authenticated');
+        }
+        const userId = user.data.user.id;
+        const { error } = await supabase
           .from('patients')
-          .insert([submitData]);
-        console.log('Supabase insert result:', { data, error });
+          .insert([{ ...submitData, user_id: userId }]);
         if (error) throw error;
       }
 

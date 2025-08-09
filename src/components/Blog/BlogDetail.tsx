@@ -24,7 +24,6 @@ export default function BlogDetail() {
         <p className="mt-4 text-xs text-blue-600 font-medium">{new Date(post.date).toLocaleDateString()} • {post.author}</p>
         <h2 className="mt-1 text-3xl font-bold text-gray-900">{post.title}</h2>
         <p className="mt-2 text-gray-600">{post.excerpt}</p>
-        <a href="/" className="mt-3 inline-flex items-center px-3 py-1.5 rounded-lg border text-sm hover:bg-gray-50">← Back to Home</a>
       </header>
 
       <div className="space-y-8">
@@ -44,9 +43,8 @@ export default function BlogDetail() {
         ))}
       </div>
 
-      <footer className="mt-10 flex items-center justify-between">
+      <footer className="mt-10">
         <Link className="text-blue-600 hover:underline" to="/blog">← Back to all posts</Link>
-        <a className="text-sm text-gray-500 hover:text-gray-700" href="/">Return home</a>
       </footer>
     </article>
   );

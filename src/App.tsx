@@ -17,6 +17,7 @@ import ReportSection from './components/Reports/ReportSection';
 import { SettingsProvider } from './contexts/SettingsContext';
 import BlogList from './components/Blog/BlogList';
 import BlogDetail from './components/Blog/BlogDetail';
+import ScrollToTop from './components/common/ScrollToTop';
 
 function DashboardApp({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (tab: string) => void }) {
   // Add event listener for search navigation
@@ -116,6 +117,7 @@ export default function App() {
   return (
     <SettingsProvider>
       <Router>
+        <ScrollToTop />
         <AppRoutes />
       </Router>
     </SettingsProvider>

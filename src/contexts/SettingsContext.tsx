@@ -109,7 +109,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         .from('practice_settings')
         .select('*')
         .eq('user_id', userId)
-        .single();
+        .maybeSingle();
 
       if (practiceData) {
         setPracticeInfo({
@@ -128,7 +128,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         .from('billing_settings')
         .select('*')
         .eq('user_id', userId)
-        .single();
+        .maybeSingle();
 
       if (billingData) {
         setBillingSettings({
@@ -145,7 +145,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         .from('notification_settings')
         .select('*')
         .eq('user_id', userId)
-        .single();
+        .maybeSingle();
 
       if (notificationData) {
         setNotificationSettings({
@@ -162,7 +162,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         .from('appearance_settings')
         .select('*')
         .eq('user_id', userId)
-        .single();
+        .maybeSingle();
 
       if (appearanceData) {
         setAppearanceSettings({
@@ -198,7 +198,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
           license: info.license,
           tax_id: info.taxId,
           updated_at: new Date().toISOString()
-        });
+        }, { onConflict: 'user_id' });
 
       if (error) throw error;
       setPracticeInfo(info);
@@ -225,7 +225,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
           payment_methods: settings.paymentMethods,
           invoice_prefix: settings.invoicePrefix,
           updated_at: new Date().toISOString()
-        });
+        }, { onConflict: 'user_id' });
 
       if (error) throw error;
       setBillingSettings(settings);
@@ -252,7 +252,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
           payment_reminders: settings.paymentReminders,
           system_alerts: settings.systemAlerts,
           updated_at: new Date().toISOString()
-        });
+        }, { onConflict: 'user_id' });
 
       if (error) throw error;
       setNotificationSettings(settings);
@@ -278,7 +278,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
           compact_tables: settings.compactTables,
           show_notification_badge: settings.showNotificationBadge,
           updated_at: new Date().toISOString()
-        });
+        }, { onConflict: 'user_id' });
 
       if (error) throw error;
       setAppearanceSettings(settings);

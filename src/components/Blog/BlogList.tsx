@@ -7,9 +7,9 @@ export default function BlogList() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
       <header className="mb-8 sm:mb-10">
+        <a href="/" className="inline-flex items-center px-4 py-2 rounded-lg border text-sm hover:bg-gray-50 mb-3">← Back to Home</a>
         <div className="flex items-center justify-between gap-4 flex-wrap">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">Blogs</h1>
-          <a href="/" className="inline-flex items-center px-4 py-2 rounded-lg border text-sm hover:bg-gray-50">← Back to Home</a>
         </div>
         <div className="mt-3">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Insights & Guides</h2>

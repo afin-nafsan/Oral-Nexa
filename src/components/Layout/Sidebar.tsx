@@ -9,8 +9,7 @@ import {
   Activity,
   Stethoscope,
   BarChart3,
-  UserCheck,
-  Newspaper
+  UserCheck
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -27,7 +26,6 @@ const menuItems: Array<{ id: string; label: string; icon: any; href?: string }> 
   { id: 'staff', label: 'Staff', icon: UserCheck },
   { id: 'expenses', label: 'Expenses', icon: CreditCard },
   { id: 'reports', label: 'Reports', icon: BarChart3 },
-  { id: 'blog', label: 'Blog', icon: Newspaper, href: '/blog' },
   { id: 'settings', label: 'Settings', icon: Settings },
 ];
 
@@ -36,9 +34,6 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
     <div className="bg-white shadow-lg h-full flex flex-col">
       <div className="p-6 border-b border-gray-200">
         <div className="flex items-center space-x-3">
-          <div className="bg-blue-600 p-2 rounded-lg">
-            <Activity className="h-6 w-6 text-white" />
-          </div>
           <div>
             <h1 className="text-xl font-bold text-gray-900">Oral Nexa</h1>
             <p className="text-sm text-gray-500">Dental Management</p>
