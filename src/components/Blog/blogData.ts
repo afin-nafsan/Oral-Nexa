@@ -43,7 +43,7 @@ export const blogPosts: BlogPost[] = [
     excerpt: 'Small, consistent improvements—confirmation texts, digital intake, post-visit care—lead to loyal patients.',
     date: '2025-06-20',
     author: 'Team Oral Nexa',
-    cover: 'https://images.unsplash.com/photo-1516542076529-1ea3854896e1?q=80&w=1600&auto=format&fit=crop',
+    cover: 'https://images.pexels.com/photos/4269692/pexels-photo-4269692.jpeg?auto=compress&cs=tinysrgb&w=1600&h=900&fit=crop',
     sections: [
       {
         heading: 'Automate the First Touch',
