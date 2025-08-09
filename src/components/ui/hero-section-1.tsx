@@ -367,7 +367,7 @@ export function HeroSection() {
                   <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Starter</h3>
                   <p className="text-gray-600 mb-4 text-sm sm:text-base">Perfect for small practices</p>
                   <div className="flex items-baseline justify-center">
-                    <span className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">$49</span>
+                    <span className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">₹4,099</span>
                     <span className="text-gray-600 ml-2 text-sm sm:text-base">/month</span>
                   </div>
                 </div>
@@ -407,7 +407,7 @@ export function HeroSection() {
                   <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Professional</h3>
                   <p className="text-gray-600 mb-4 text-sm sm:text-base">Most popular for growing practices</p>
                   <div className="flex items-baseline justify-center">
-                    <span className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">$99</span>
+                    <span className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">₹8,299</span>
                     <span className="text-gray-600 ml-2 text-sm sm:text-base">/month</span>
                   </div>
                 </div>
@@ -445,7 +445,7 @@ export function HeroSection() {
                   <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Enterprise</h3>
                   <p className="text-gray-600 mb-4 text-sm sm:text-base">For large practices and clinics</p>
                   <div className="flex items-baseline justify-center">
-                    <span className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">$199</span>
+                    <span className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">₹16,499</span>
                     <span className="text-gray-600 ml-2 text-sm sm:text-base">/month</span>
                   </div>
                 </div>
