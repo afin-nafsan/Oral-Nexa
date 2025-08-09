@@ -15,6 +15,8 @@ import Login from './components/Auth/Login';
 import LandingPage from './components/LandingPage';
 import ReportSection from './components/Reports/ReportSection';
 import { SettingsProvider } from './contexts/SettingsContext';
+import BlogList from './components/Blog/BlogList';
+import BlogDetail from './components/Blog/BlogDetail';
 
 function DashboardApp({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (tab: string) => void }) {
   // Add event listener for search navigation
@@ -102,6 +104,8 @@ function AppRoutes() {
       <Route path="/dashboard" element={
         session ? <DashboardApp activeTab={activeTab} setActiveTab={setActiveTab} /> : <Navigate to="/login" replace />
       } />
+      <Route path="/blog" element={<BlogList />} />
+      <Route path="/blog/:slug" element={<BlogDetail />} />
       {/* Optionally, catch-all route */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
