@@ -153,7 +153,9 @@ export default function PrescriptionForm({
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="">Select Doctor</option>
-                {staff.filter(member => member.role === 'dentist').map((doctor) => (
+                {staff
+                  .filter(member => ['doctor','dentist','physician','surgeon'].includes(String(member.role || '').toLowerCase()))
+                  .map((doctor) => (
                   <option key={doctor.id} value={doctor.id}>
                     Dr. {doctor.first_name} {doctor.last_name}
                   </option>

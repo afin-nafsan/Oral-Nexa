@@ -12,10 +12,12 @@ export default function StaffForm({ onClose, onSave }: StaffFormProps) {
     last_name: '',
     email: '',
     phone: '',
-    role: '',
+    role: 'doctor',
     specialization: '',
     license_number: '',
   });
+  const [useCustomRole, setUseCustomRole] = useState(false);
+  const [customRole, setCustomRole] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -34,12 +36,16 @@ export default function StaffForm({ onClose, onSave }: StaffFormProps) {
       if (!formData.first_name.trim() || !formData.last_name.trim() || !formData.email.trim()) {
         throw new Error('First name, last name, and email are required');
       }
+      const finalRole = (useCustomRole ? customRole : formData.role).trim();
+      if (!finalRole) {
+        throw new Error('Role is required');
+      }
       const user = await supabase.auth.getUser();
       if (!user.data.user) {
         throw new Error('User not authenticated');
       }
       const userId = user.data.user.id;
-      const { error } = await supabase.from('staff').insert([{ ...formData, user_id: userId }]);
+      const { error } = await supabase.from('staff').insert([{ ...formData, role: finalRole.toLowerCase(), user_id: userId }]);
       if (error) throw error;
       onSave();
     } catch (err: any) {
@@ -110,14 +116,40 @@ export default function StaffForm({ onClose, onSave }: StaffFormProps) {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Role</label>
-            <input
-              type="text"
+            <select
               name="role"
-              value={formData.role}
-              onChange={handleChange}
+              value={useCustomRole ? 'custom' : formData.role}
+              onChange={(e) => {
+                if (e.target.value === 'custom') {
+                  setUseCustomRole(true);
+                } else {
+                  setUseCustomRole(false);
+                  setFormData({ ...formData, role: e.target.value });
+                }
+              }}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Role (e.g. Dentist, Hygienist)"
-            />
+            >
+              <option value="doctor">Doctor</option>
+              <option value="dentist">Dentist</option>
+              <option value="hygienist">Hygienist</option>
+              <option value="nurse">Nurse</option>
+              <option value="receptionist">Receptionist</option>
+              <option value="assistant">Assistant</option>
+              <option value="accountant">Accountant</option>
+              <option value="admin">Admin</option>
+              <option value="manager">Manager</option>
+              <option value="technician">Technician</option>
+              <option value="custom">Custom...</option>
+            </select>
+            {useCustomRole && (
+              <input
+                type="text"
+                value={customRole}
+                onChange={(e) => setCustomRole(e.target.value)}
+                placeholder="Enter custom role"
+                className="mt-2 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Specialization</label>
