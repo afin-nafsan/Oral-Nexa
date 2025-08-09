@@ -138,7 +138,7 @@ export const blogPosts: BlogPost[] = [
         heading: 'Traceability',
         body:
           'Use barcodes and lot tracking for critical items and document cycles.',
-        image: 'https://images.unsplash.com/photo-1581594693700-8120aa3b0f1b?q=80&w=1600&auto=format&fit=crop'
+        image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=1600&auto=format&fit=crop'
       },
       {
         heading: 'CDC Resources',
