@@ -7,24 +7,37 @@ interface ExpenseFormProps {
   expense?: any;
   onClose: () => void;  
   onSave: () => void;
+  initial?: Partial<{
+    type: string;
+    patient_id: string;
+    transaction_id: string;
+    category: string;
+    description: string;
+    amount: number | string;
+    expense_date: string;
+    payment_method: string;
+    receipt_number: string;
+    vendor: string;
+    notes: string;
+  }>;
 }
 
-export default function ExpenseForm({ expense, onClose, onSave }: ExpenseFormProps) {
+export default function ExpenseForm({ expense, onClose, onSave, initial }: ExpenseFormProps) {
   const { patients } = usePatients();
   const [formData, setFormData] = useState({
-    type: expense?.type || 'debit',
-    patient_id: expense?.patient_id || '',
-    transaction_id: expense?.transaction_id || '',
-    category: expense?.category || '',
-    description: expense?.description || '',
-    amount: expense?.amount || '',
-    expense_date: expense?.expense_date ? 
-      new Date(expense.expense_date).toISOString().slice(0, 10) : 
-      new Date().toISOString().slice(0, 10),
-    payment_method: expense?.payment_method || 'cash',
-    receipt_number: expense?.receipt_number || '',
-    vendor: expense?.vendor || '',
-    notes: expense?.notes || '',
+    type: expense?.type || initial?.type || 'debit',
+    patient_id: expense?.patient_id || initial?.patient_id || '',
+    transaction_id: expense?.transaction_id || initial?.transaction_id || '',
+    category: expense?.category || initial?.category || '',
+    description: expense?.description || initial?.description || '',
+    amount: expense?.amount || initial?.amount || '',
+    expense_date: expense?.expense_date
+      ? new Date(expense.expense_date).toISOString().slice(0, 10)
+      : (initial?.expense_date || new Date().toISOString().slice(0, 10)),
+    payment_method: expense?.payment_method || initial?.payment_method || 'cash',
+    receipt_number: expense?.receipt_number || initial?.receipt_number || '',
+    vendor: expense?.vendor || initial?.vendor || '',
+    notes: expense?.notes || initial?.notes || '',
   });
   const [loading, setLoading] = useState(false);
 
@@ -39,6 +52,12 @@ export default function ExpenseForm({ expense, onClose, onSave }: ExpenseFormPro
         expense_date: new Date(formData.expense_date).toISOString(),
         patient_id: formData.patient_id || null,
       };
+      if (expenseData.amount <= 0 || Number.isNaN(expenseData.amount)) {
+        throw new Error('Amount must be a positive number');
+      }
+      if (formData.type === 'credit' && !formData.patient_id) {
+        throw new Error('Patient is required for credit (patient payment)');
+      }
 
       if (expense) {
         const { error } = await supabase
@@ -123,14 +142,17 @@ export default function ExpenseForm({ expense, onClose, onSave }: ExpenseFormPro
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Patient (optional)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Patient {formData.type === 'credit' && <span className="text-red-600">(required for payment)</span>}
+              </label>
               <select
                 name="patient_id"
                 value={formData.patient_id}
                 onChange={handleChange}
+                required={formData.type === 'credit'}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
-                <option value="">-- None --</option>
+                <option value="">-- {formData.type === 'credit' ? 'Select Patient' : 'None'} --</option>
                 {patients.map((p) => (
                   <option key={p.id} value={p.id}>{p.first_name} {p.last_name}</option>
                 ))}

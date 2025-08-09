@@ -122,7 +122,7 @@ export default function AppointmentForm({
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Doctor/Staff
+                Doctor
               </label>
               <select
                 name="staff_id"
@@ -130,12 +130,19 @@ export default function AppointmentForm({
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
-                <option value="">Select Doctor/Staff</option>
-                {staff.map((member) => (
-                  <option key={member.id} value={member.id}>
-                    {member.first_name} {member.last_name} - {member.role}
-                  </option>
-                ))}
+                <option value="">Select Doctor</option>
+                {staff
+                  .filter((member) => [
+                    'doctor',
+                    'dentist',
+                    'physician',
+                    'surgeon',
+                  ].includes(String(member.role || '').toLowerCase()))
+                  .map((doctor) => (
+                    <option key={doctor.id} value={doctor.id}>
+                      Dr. {doctor.first_name} {doctor.last_name}
+                    </option>
+                  ))}
               </select>
             </div>
 

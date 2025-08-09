@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Plus, Search, TrendingUp, Calendar, Filter } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Plus, Search, TrendingUp, Calendar } from 'lucide-react';
 import { useExpenses, usePatients } from '../../hooks/useSupabase';
 import ExpenseForm from './ExpenseForm';
 import { format } from 'date-fns';
@@ -18,6 +18,7 @@ export default function ExpenseManagement() {
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [patientFilter, setPatientFilter] = useState('all');
 
   // Get currency symbol
   const getCurrencySymbol = () => {
@@ -50,6 +51,7 @@ export default function ExpenseManagement() {
                          (exp.vendor?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
                          (exp.transaction_id?.toLowerCase() || '').includes(searchTerm.toLowerCase());
     const matchesCategory = categoryFilter === 'all' || exp.category === categoryFilter;
+    const matchesPatient = patientFilter === 'all' || exp.patient_id === patientFilter;
     let matchesDate = true;
     if (startDate) {
       matchesDate = matchesDate && new Date(exp.expense_date).toISOString().slice(0, 10) >= startDate;
@@ -57,7 +59,7 @@ export default function ExpenseManagement() {
     if (endDate) {
       matchesDate = matchesDate && new Date(exp.expense_date).toISOString().slice(0, 10) <= endDate;
     }
-    return matchesSearch && matchesCategory && matchesDate;
+    return matchesSearch && matchesCategory && matchesPatient && matchesDate;
   });
 
   const totalCredits = expenses.filter(exp => exp.type === 'credit').reduce((sum, exp) => sum + parseFloat(exp.amount), 0);
@@ -131,8 +133,8 @@ export default function ExpenseManagement() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Expense Management</h2>
-          <p className="text-gray-500 mt-1">Record and manage all clinic credits and debits</p>
+          <h2 className="text-2xl font-bold text-gray-900">Payments & Expenses</h2>
+          <p className="text-gray-500 mt-1">Track patient payments (credits) and clinic expenses (debits)</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-2">
           <button
@@ -140,7 +142,7 @@ export default function ExpenseManagement() {
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
           >
             <Plus className="h-5 w-5" />
-            <span>Add Transaction</span>
+            <span>Add Payment/Expense</span>
           </button>
           <button
             onClick={handleDownloadExcel}
@@ -164,23 +166,35 @@ export default function ExpenseManagement() {
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
-        <select
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        >
-          <option value="all">All Categories</option>
-          <option value="equipment">Equipment</option>
-          <option value="supplies">Supplies</option>
-          <option value="utilities">Utilities</option>
-          <option value="rent">Rent</option>
-          <option value="insurance">Insurance</option>
-          <option value="maintenance">Maintenance</option>
-          <option value="marketing">Marketing</option>
-          <option value="software">Software</option>
-          <option value="income">Income</option>
-          <option value="other">Other</option>
-        </select>
+        <div className="flex gap-2">
+          <select
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          >
+            <option value="all">All Categories</option>
+            <option value="equipment">Equipment</option>
+            <option value="supplies">Supplies</option>
+            <option value="utilities">Utilities</option>
+            <option value="rent">Rent</option>
+            <option value="insurance">Insurance</option>
+            <option value="maintenance">Maintenance</option>
+            <option value="marketing">Marketing</option>
+            <option value="software">Software</option>
+            <option value="income">Income</option>
+            <option value="other">Other</option>
+          </select>
+          <select
+            value={patientFilter}
+            onChange={(e) => setPatientFilter(e.target.value)}
+            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          >
+            <option value="all">All Patients</option>
+            {patients.map((p) => (
+              <option key={p.id} value={p.id}>{p.first_name} {p.last_name}</option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {/* Date Range Picker */}

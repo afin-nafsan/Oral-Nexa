@@ -138,7 +138,7 @@ export function useExpenses({ includeClosed = false } = {}) {
       const userId = user.data.user.id;
       let query = supabase
         .from('expenses')
-        .select('*')
+        .select('*, patients(first_name, last_name)')
         .eq('user_id', userId)
         .order('expense_date', { ascending: false });
       if (!includeClosed) {
