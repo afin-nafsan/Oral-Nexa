@@ -33,33 +33,61 @@ export function HeroSection() {
     <>
       <HeroHeader />
       <main className="overflow-x-hidden">
-        <section>
-          <div className="py-20 md:pb-32 lg:pb-36 lg:pt-32">
+                                   <section className="relative min-h-screen flex items-center">
+                       <div className="py-4 sm:py-6 md:pb-8 lg:pb-12 lg:pt-8 w-full">
             <div className="relative z-10 mx-auto flex max-w-7xl flex-col px-6 lg:block lg:px-12">
-              <div className="mx-auto max-w-lg text-center lg:ml-0 lg:max-w-full lg:text-left">
-                                 <h1 className="mt-12 max-w-4xl text-balance text-6xl md:text-7xl lg:mt-8 xl:text-8xl font-extrabold tracking-tight">
+                             <div className="mx-auto max-w-4xl text-center">
+                                   <h1 className="mt-8 text-balance text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-extrabold tracking-tight">
                    <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 dark:from-blue-400 dark:via-purple-400 dark:to-blue-600 bg-clip-text text-transparent drop-shadow-lg">
                      Transform Your Dental Practice
                    </span>
                    <br />
                    <span className="text-foreground font-black drop-shadow-lg">with Oral Nexa</span>
                  </h1>
-                                   <p className="mt-8 max-w-4xl text-balance text-xl md:text-2xl lg:text-3xl text-muted-foreground/90 font-medium leading-relaxed bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-blue-800/10 backdrop-blur-sm px-8 py-6 rounded-2xl border border-blue-500/20 shadow-lg">Comprehensive dental practice management software that streamlines operations, enhances patient care, and boosts your practice's efficiency.</p>
               </div>
             </div>
-            <div className="aspect-[2/3] absolute inset-1 overflow-hidden rounded-3xl border border-black/10 sm:aspect-video lg:rounded-[3rem] dark:border-white/5 dark:shadow-2xl dark:shadow-blue-500/10">
+                         <div className="absolute inset-0 overflow-hidden z-0">
               <video
                 autoPlay
                 loop
                 muted
                 className="size-full object-cover opacity-60 invert dark:opacity-40 dark:invert dark:lg:opacity-60"
                 src="https://ik.imagekit.io/lrigu76hy/tailark/dna-video.mp4?updatedAt=1745736251477"></video>
-            </div>
-          </div>
-                 </section>
-        
-        {/* Stats Section */}
-        <section className="bg-blue-600 py-12 sm:py-16 mt-16 sm:mt-20">
+                         </div>
+           </div>
+                                       </section>
+
+           {/* Dashboard Preview Section */}
+           <section className="py-12 sm:py-16 bg-muted/30">
+             <div className="mx-auto max-w-7xl px-4 sm:px-6">
+               <div className="text-center mb-8 sm:mb-12">
+                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+                   See Oral Nexa in Action
+                 </h2>
+                 <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto">
+                   Experience the intuitive interface that dental professionals love
+                 </p>
+               </div>
+               
+               <div className="relative mx-auto max-w-5xl">
+                 <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl border border-border">
+                   <img 
+                     src="/dashboard-preview.png" 
+                     alt="Oral Nexa Dashboard Interface" 
+                     className="w-full h-auto object-cover"
+                   />
+                   
+                   {/* Live Demo Badge */}
+                   <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-green-500 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">
+                     Live Demo
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </section>
+
+                                            {/* Stats Section */}
+          <section className="bg-blue-600 py-12 sm:py-16 relative z-10">
           <div className="mx-auto max-w-7xl px-4 sm:px-6">
             <div className="grid grid-cols-2 gap-6 sm:gap-8 lg:grid-cols-4">
               <div className="text-center">
