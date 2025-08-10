@@ -17,6 +17,10 @@ import ReportSection from './components/Reports/ReportSection';
 import { SettingsProvider } from './contexts/SettingsContext';
 import BlogList from './components/Blog/BlogList';
 import BlogDetail from './components/Blog/BlogDetail';
+import AboutUs from './components/About/AboutUs';
+import Careers from './components/Careers/Careers';
+import Contact from './components/Contact/Contact';
+import Partners from './components/Partners/Partners';
 import ScrollToTop from './components/common/ScrollToTop';
 
 function DashboardApp({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (tab: string) => void }) {
@@ -107,6 +111,10 @@ function AppRoutes() {
       } />
       <Route path="/blog" element={<BlogList />} />
       <Route path="/blog/:slug" element={<BlogDetail />} />
+      <Route path="/about" element={<AboutUs />} />
+      <Route path="/careers" element={<Careers />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/partners" element={<Partners />} />
       {/* Optionally, catch-all route */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

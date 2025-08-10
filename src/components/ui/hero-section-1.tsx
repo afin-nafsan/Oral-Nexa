@@ -574,31 +574,31 @@ export function HeroSection() {
               <div className="col-span-1">
                 <h4 className="text-lg font-semibold mb-6 text-white">Company</h4>
                 <ul className="space-y-3 text-gray-400">
-                  <li>
-                    <a href="#about" className="hover:text-white transition-colors duration-300 flex items-center group">
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">About Us</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/blog" className="hover:text-white transition-colors duration-300 flex items-center group">
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">Blog</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#careers" className="hover:text-white transition-colors duration-300 flex items-center group">
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">Careers</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#contact" className="hover:text-white transition-colors duration-300 flex items-center group">
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">Contact</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#partners" className="hover:text-white transition-colors duration-300 flex items-center group">
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">Partners</span>
-                    </a>
-                  </li>
+                                     <li>
+                     <a href="/about" className="hover:text-white transition-colors duration-300 flex items-center group">
+                       <span className="group-hover:translate-x-1 transition-transform duration-300">About Us</span>
+                     </a>
+                   </li>
+                   <li>
+                     <a href="/blog" className="hover:text-white transition-colors duration-300 flex items-center group">
+                       <span className="group-hover:translate-x-1 transition-transform duration-300">Blog</span>
+                     </a>
+                   </li>
+                   <li>
+                     <a href="/careers" className="hover:text-white transition-colors duration-300 flex items-center group">
+                       <span className="group-hover:translate-x-1 transition-transform duration-300">Careers</span>
+                     </a>
+                   </li>
+                   <li>
+                     <a href="/contact" className="hover:text-white transition-colors duration-300 flex items-center group">
+                       <span className="group-hover:translate-x-1 transition-transform duration-300">Contact</span>
+                     </a>
+                   </li>
+                   <li>
+                     <a href="/partners" className="hover:text-white transition-colors duration-300 flex items-center group">
+                       <span className="group-hover:translate-x-1 transition-transform duration-300">Partners</span>
+                     </a>
+                   </li>
                 </ul>
               </div>
 
