@@ -41,7 +41,7 @@ export default function Contact() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <a href="/" className="flex items-center space-x-2">
-              <BrandLogo height={40} />
+              <BrandLogo height={60} className="scale-125 origin-left" />
             </a>
             <a 
               href="/" 
