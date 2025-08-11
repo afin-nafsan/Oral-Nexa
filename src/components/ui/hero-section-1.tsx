@@ -7,6 +7,7 @@ import { BrandLogo } from '@/components/ui/brand-logo';
 import { InfiniteSlider } from '@/components/ui/infinite-slider';
 import { ProgressiveBlur } from '@/components/ui/progressive-blur';
 import { useScroll, motion } from 'framer-motion';
+import { SharedNavigation } from '@/components/ui/shared-navigation';
 
 const transitionVariants = {
   item: {
@@ -31,7 +32,7 @@ const transitionVariants = {
 export function HeroSection() {
   return (
     <>
-      <HeroHeader />
+      <SharedNavigation />
       <main className="overflow-x-hidden">
                                    <section className="relative min-h-screen flex items-center">
                        <div className="py-4 sm:py-6 md:pb-8 lg:pb-12 lg:pt-8 w-full">
