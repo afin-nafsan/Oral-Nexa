@@ -30,6 +30,19 @@ const transitionVariants = {
 };
 
 export function HeroSection() {
+  const handleFooterClick = (href: string, e: React.MouseEvent) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+  };
+
   return (
     <>
       <SharedNavigation />
@@ -454,21 +467,21 @@ export function HeroSection() {
               <div className="col-span-1">
                 <h4 className="text-lg font-semibold mb-6 text-white">Product</h4>
                 <ul className="space-y-3 text-gray-400">
-                  <li>
-                    <a href="#features" className="hover:text-white transition-colors duration-300 flex items-center group">
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">Features</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#pricing" className="hover:text-white transition-colors duration-300 flex items-center group">
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">Pricing</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#testimonials" className="hover:text-white transition-colors duration-300 flex items-center group">
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">Testimonials</span>
-                    </a>
-                  </li>
+                                     <li>
+                     <a href="#features" onClick={(e) => handleFooterClick('#features', e)} className="hover:text-white transition-colors duration-300 flex items-center group">
+                       <span className="group-hover:translate-x-1 transition-transform duration-300">Features</span>
+                     </a>
+                   </li>
+                   <li>
+                     <a href="#pricing" onClick={(e) => handleFooterClick('#pricing', e)} className="hover:text-white transition-colors duration-300 flex items-center group">
+                       <span className="group-hover:translate-x-1 transition-transform duration-300">Pricing</span>
+                     </a>
+                   </li>
+                   <li>
+                     <a href="#testimonials" onClick={(e) => handleFooterClick('#testimonials', e)} className="hover:text-white transition-colors duration-300 flex items-center group">
+                       <span className="group-hover:translate-x-1 transition-transform duration-300">Testimonials</span>
+                     </a>
+                   </li>
                   <li>
                     <a href="/blog" className="hover:text-white transition-colors duration-300 flex items-center group">
                       <span className="group-hover:translate-x-1 transition-transform duration-300">Blog</span>
@@ -486,31 +499,31 @@ export function HeroSection() {
               <div className="col-span-1">
                 <h4 className="text-lg font-semibold mb-6 text-white">Company</h4>
                 <ul className="space-y-3 text-gray-400">
-                                     <li>
-                     <a href="/about" className="hover:text-white transition-colors duration-300 flex items-center group">
-                       <span className="group-hover:translate-x-1 transition-transform duration-300">About Us</span>
-                     </a>
-                   </li>
-                   <li>
-                     <a href="/blog" className="hover:text-white transition-colors duration-300 flex items-center group">
-                       <span className="group-hover:translate-x-1 transition-transform duration-300">Blog</span>
-                     </a>
-                   </li>
-                   <li>
-                     <a href="/careers" className="hover:text-white transition-colors duration-300 flex items-center group">
-                       <span className="group-hover:translate-x-1 transition-transform duration-300">Careers</span>
-                     </a>
-                   </li>
-                   <li>
-                     <a href="/contact" className="hover:text-white transition-colors duration-300 flex items-center group">
-                       <span className="group-hover:translate-x-1 transition-transform duration-300">Contact</span>
-                     </a>
-                   </li>
-                   <li>
-                     <a href="/partners" className="hover:text-white transition-colors duration-300 flex items-center group">
-                       <span className="group-hover:translate-x-1 transition-transform duration-300">Partners</span>
-                     </a>
-                   </li>
+                                                         <li>
+                      <a href="/about" className="hover:text-white transition-colors duration-300 flex items-center group">
+                        <span className="group-hover:translate-x-1 transition-transform duration-300">About Us</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/blog" className="hover:text-white transition-colors duration-300 flex items-center group">
+                        <span className="group-hover:translate-x-1 transition-transform duration-300">Blog</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#careers" onClick={(e) => handleFooterClick('#careers', e)} className="hover:text-white transition-colors duration-300 flex items-center group">
+                        <span className="group-hover:translate-x-1 transition-transform duration-300">Careers</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#contact" onClick={(e) => handleFooterClick('#contact', e)} className="hover:text-white transition-colors duration-300 flex items-center group">
+                        <span className="group-hover:translate-x-1 transition-transform duration-300">Contact</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#partners" onClick={(e) => handleFooterClick('#partners', e)} className="hover:text-white transition-colors duration-300 flex items-center group">
+                        <span className="group-hover:translate-x-1 transition-transform duration-300">Partners</span>
+                      </a>
+                    </li>
                 </ul>
               </div>
 
@@ -518,31 +531,31 @@ export function HeroSection() {
               <div className="col-span-1">
                 <h4 className="text-lg font-semibold mb-6 text-white">Support</h4>
                 <ul className="space-y-3 text-gray-400">
-                  <li>
-                    <a href="#help" className="hover:text-white transition-colors duration-300 flex items-center group">
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">Help Center</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#docs" className="hover:text-white transition-colors duration-300 flex items-center group">
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">Documentation</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#training" className="hover:text-white transition-colors duration-300 flex items-center group">
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">Training</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#status" className="hover:text-white transition-colors duration-300 flex items-center group">
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">System Status</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#contact" className="hover:text-white transition-colors duration-300 flex items-center group">
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">Contact Support</span>
-                    </a>
-                  </li>
+                                     <li>
+                     <a href="#help" onClick={(e) => handleFooterClick('#help', e)} className="hover:text-white transition-colors duration-300 flex items-center group">
+                       <span className="group-hover:translate-x-1 transition-transform duration-300">Help Center</span>
+                     </a>
+                   </li>
+                   <li>
+                     <a href="#docs" onClick={(e) => handleFooterClick('#docs', e)} className="hover:text-white transition-colors duration-300 flex items-center group">
+                       <span className="group-hover:translate-x-1 transition-transform duration-300">Documentation</span>
+                     </a>
+                   </li>
+                   <li>
+                     <a href="#training" onClick={(e) => handleFooterClick('#training', e)} className="hover:text-white transition-colors duration-300 flex items-center group">
+                       <span className="group-hover:translate-x-1 transition-transform duration-300">Training</span>
+                     </a>
+                   </li>
+                   <li>
+                     <a href="#status" onClick={(e) => handleFooterClick('#status', e)} className="hover:text-white transition-colors duration-300 flex items-center group">
+                       <span className="group-hover:translate-x-1 transition-transform duration-300">System Status</span>
+                     </a>
+                   </li>
+                   <li>
+                     <a href="#contact" onClick={(e) => handleFooterClick('#contact', e)} className="hover:text-white transition-colors duration-300 flex items-center group">
+                       <span className="group-hover:translate-x-1 transition-transform duration-300">Contact Support</span>
+                     </a>
+                   </li>
                 </ul>
               </div>
             </div>
