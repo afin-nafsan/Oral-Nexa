@@ -6,6 +6,7 @@ import { BrandLogo } from '@/components/ui/brand-logo';
 import { Button } from '@/components/ui/button';
 
 const menuItems = [
+    { name: 'Home', href: '/' },
     { name: 'Features', href: '/#features' },
     { name: 'Pricing', href: '/#pricing' },
     { name: 'Blog', href: '/blog' },
