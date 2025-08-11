@@ -406,25 +406,224 @@ export function HeroSection() {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="bg-blue-600 py-16 sm:py-20">
-          <div className="mx-auto max-w-4xl text-center px-4 sm:px-6">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 sm:mb-6">
-              Ready to Transform Your Practice?
-            </h2>
-            <p className="text-lg sm:text-xl text-blue-100 mb-6 sm:mb-8 px-4 sm:px-0">
-              Join thousands of dental professionals who trust Oral Nexa to manage their practice efficiently.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <Button size="lg" variant="secondary" className="px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base">
-                Start Free Trial
-              </Button>
-              <Button size="lg" variant="outline" className="px-6 sm:px-8 py-3 sm:py-4 border-white bg-white text-black hover:bg-white/90 text-sm sm:text-base">
-                Schedule Demo
-              </Button>
-            </div>
-          </div>
-        </section>
+                 {/* CTA Section */}
+         <section className="bg-blue-600 py-16 sm:py-20">
+           <div className="mx-auto max-w-4xl text-center px-4 sm:px-6">
+             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 sm:mb-6">
+               Ready to Transform Your Practice?
+             </h2>
+             <p className="text-lg sm:text-xl text-blue-100 mb-6 sm:mb-8 px-4 sm:px-0">
+               Join thousands of dental professionals who trust Oral Nexa to manage their practice efficiently.
+             </p>
+             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+               <Button size="lg" variant="secondary" className="px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base">
+                 Start Free Trial
+               </Button>
+               <Button size="lg" variant="outline" className="px-6 sm:px-8 py-3 sm:py-4 border-white bg-white text-black hover:bg-white/90 text-sm sm:text-base">
+                 Schedule Demo
+               </Button>
+             </div>
+           </div>
+         </section>
+
+         {/* Careers Section */}
+         <section id="careers" className="bg-background py-16 sm:py-20">
+           <div className="mx-auto max-w-7xl px-4 sm:px-6">
+             <div className="text-center mb-12 sm:mb-16">
+               <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+                 Join Our Team
+               </h2>
+               <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-4 sm:px-0">
+                 Be part of a team that's revolutionizing dental practice management. We're looking for passionate individuals to help us grow.
+               </p>
+             </div>
+
+             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+               <div className="bg-card rounded-xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-border">
+                 <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-3 sm:mb-4">Frontend Developer</h3>
+                 <p className="text-muted-foreground leading-relaxed text-sm sm:text-base mb-4">Join our frontend team to build beautiful, responsive user interfaces that dental professionals love.</p>
+                 <div className="flex flex-wrap gap-2">
+                   <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">React</span>
+                   <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">TypeScript</span>
+                   <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">Tailwind</span>
+                 </div>
+               </div>
+
+               <div className="bg-card rounded-xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-border">
+                 <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-3 sm:mb-4">Backend Developer</h3>
+                 <p className="text-muted-foreground leading-relaxed text-sm sm:text-base mb-4">Build robust APIs and scalable systems that power our dental practice management platform.</p>
+                 <div className="flex flex-wrap gap-2">
+                   <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">Node.js</span>
+                   <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">Python</span>
+                   <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">PostgreSQL</span>
+                 </div>
+               </div>
+
+               <div className="bg-card rounded-xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-border">
+                 <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-3 sm:mb-4">Product Manager</h3>
+                 <p className="text-muted-foreground leading-relaxed text-sm sm:text-base mb-4">Lead product strategy and work closely with dental professionals to understand their needs.</p>
+                 <div className="flex flex-wrap gap-2">
+                   <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-medium">Strategy</span>
+                   <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-medium">UX Research</span>
+                   <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-medium">Analytics</span>
+                 </div>
+               </div>
+             </div>
+
+             <div className="text-center mt-12">
+               <Button size="lg" className="px-8 py-3">
+                 View All Openings
+               </Button>
+             </div>
+           </div>
+         </section>
+
+         {/* Contact Section */}
+         <section id="contact" className="bg-muted py-16 sm:py-20">
+           <div className="mx-auto max-w-7xl px-4 sm:px-6">
+             <div className="text-center mb-12 sm:mb-16">
+               <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+                 Get in Touch
+               </h2>
+               <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-4 sm:px-0">
+                 Have questions about Oral Nexa? Our team is here to help you get started.
+               </p>
+             </div>
+
+             <div className="grid lg:grid-cols-2 gap-12 sm:gap-16">
+               <div>
+                 <h3 className="text-xl sm:text-2xl font-semibold text-foreground mb-6">Contact Information</h3>
+                 <div className="space-y-6">
+                   <div className="flex items-start space-x-4">
+                     <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                       <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                       </svg>
+                     </div>
+                     <div>
+                       <h4 className="font-semibold text-foreground">Address</h4>
+                       <p className="text-muted-foreground">123 Dental Tech Street<br />Bangalore, Karnataka 560001</p>
+                     </div>
+                   </div>
+
+                   <div className="flex items-start space-x-4">
+                     <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                       <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                       </svg>
+                     </div>
+                     <div>
+                       <h4 className="font-semibold text-foreground">Phone</h4>
+                       <p className="text-muted-foreground">+91 98765 43210</p>
+                     </div>
+                   </div>
+
+                   <div className="flex items-start space-x-4">
+                     <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                       <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                       </svg>
+                     </div>
+                     <div>
+                       <h4 className="font-semibold text-foreground">Email</h4>
+                       <p className="text-muted-foreground">hello@oralnexa.com</p>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+
+               <div className="bg-card rounded-xl p-6 sm:p-8 shadow-lg border border-border">
+                 <h3 className="text-xl sm:text-2xl font-semibold text-foreground mb-6">Send us a Message</h3>
+                 <form className="space-y-4">
+                   <div className="grid sm:grid-cols-2 gap-4">
+                     <input
+                       type="text"
+                       placeholder="First Name"
+                       className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                     />
+                     <input
+                       type="text"
+                       placeholder="Last Name"
+                       className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                     />
+                   </div>
+                   <input
+                     type="email"
+                     placeholder="Email Address"
+                     className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                   />
+                   <textarea
+                     placeholder="Your Message"
+                     rows={4}
+                     className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                   ></textarea>
+                   <Button type="submit" className="w-full">
+                     Send Message
+                   </Button>
+                 </form>
+               </div>
+             </div>
+           </div>
+         </section>
+
+         {/* Partners Section */}
+         <section id="partners" className="bg-background py-16 sm:py-20">
+           <div className="mx-auto max-w-7xl px-4 sm:px-6">
+             <div className="text-center mb-12 sm:mb-16">
+               <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+                 Our Partners
+               </h2>
+               <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-4 sm:px-0">
+                 We work with leading dental organizations and technology partners to deliver the best solutions.
+               </p>
+             </div>
+
+             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
+               <div className="text-center">
+                 <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-lg flex items-center justify-center">
+                   <span className="text-2xl font-bold text-gray-600">DentalTech</span>
+                 </div>
+                 <h3 className="font-semibold text-foreground mb-2">DentalTech Solutions</h3>
+                 <p className="text-sm text-muted-foreground">Leading dental equipment manufacturer</p>
+               </div>
+
+               <div className="text-center">
+                 <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-lg flex items-center justify-center">
+                   <span className="text-2xl font-bold text-gray-600">MedSoft</span>
+                 </div>
+                 <h3 className="font-semibold text-foreground mb-2">MedSoft Systems</h3>
+                 <p className="text-sm text-muted-foreground">Healthcare software integration</p>
+               </div>
+
+               <div className="text-center">
+                 <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-lg flex items-center justify-center">
+                   <span className="text-2xl font-bold text-gray-600">CloudDent</span>
+                 </div>
+                 <h3 className="font-semibold text-foreground mb-2">CloudDent Labs</h3>
+                 <p className="text-sm text-muted-foreground">Cloud infrastructure partner</p>
+               </div>
+
+               <div className="text-center">
+                 <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-lg flex items-center justify-center">
+                   <span className="text-2xl font-bold text-gray-600">SecureMed</span>
+                 </div>
+                 <h3 className="font-semibold text-foreground mb-2">SecureMed</h3>
+                 <p className="text-sm text-muted-foreground">Security and compliance</p>
+               </div>
+             </div>
+
+             <div className="text-center mt-12">
+               <h3 className="text-xl sm:text-2xl font-semibold text-foreground mb-4">Become a Partner</h3>
+               <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+                 Interested in partnering with Oral Nexa? We're always looking for innovative companies to collaborate with.
+               </p>
+               <Button size="lg" variant="outline">
+                 Partner With Us
+               </Button>
+             </div>
+           </div>
+         </section>
 
         {/* Footer */}
         <footer className="bg-gray-900 text-white py-12 sm:py-16 lg:py-20">
@@ -597,102 +796,4 @@ export function HeroSection() {
   );
 }
 
-const menuItems = [
-    { name: 'Features', href: '#features' },
-    { name: 'Pricing', href: '#pricing' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'About', href: '/about' },
-]
 
-const HeroHeader = () => {
-    const [menuState, setMenuState] = React.useState(false)
-    const [scrolled, setScrolled] = React.useState(false)
-    const { scrollYProgress } = useScroll()
-
-    React.useEffect(() => {
-        const unsubscribe = scrollYProgress.on('change', (latest) => {
-            setScrolled(latest > 0.05)
-        })
-        return () => unsubscribe()
-    }, [scrollYProgress])
-
-    return (
-        <header>
-            <nav
-                data-state={menuState && 'active'}
-                className="group fixed z-20 w-full pt-2">
-                <div className={cn('mx-auto max-w-7xl rounded-3xl px-6 transition-all duration-300 lg:px-12', scrolled && 'bg-background/50 backdrop-blur-2xl')}>
-                    <motion.div
-                        key={1}
-                        className={cn('relative flex flex-wrap items-center justify-between gap-6 py-3 duration-200 lg:gap-0 lg:py-6', scrolled && 'lg:py-4')}>
-                        <div className="flex w-full items-center justify-between gap-12 lg:w-auto">
-                            <a
-                                href="/"
-                                aria-label="home"
-                                className="flex items-center space-x-2">
-                                <BrandLogo height={60} className="scale-125 origin-left" />
-                            </a>
-
-                            <button
-                                onClick={() => setMenuState(!menuState)}
-                                aria-label={menuState == true ? 'Close Menu' : 'Open Menu'}
-                                className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden">
-                                <Menu className="group-data-[state=active]:rotate-180 group-data-[state=active]:scale-0 group-data-[state=active]:opacity-0 m-auto size-6 duration-200" />
-                                <X className="group-data-[state=active]:rotate-0 group-data-[state=active]:scale-100 group-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200" />
-                            </button>
-
-                            <div className="hidden lg:block">
-                                <ul className="flex gap-8 text-sm">
-                                    {menuItems.map((item, index) => (
-                                        <li key={index}>
-                                            <a
-                                                href={item.href}
-                                                className="text-muted-foreground hover:text-accent-foreground block duration-150">
-                                                <span>{item.name}</span>
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div className="bg-background group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
-                            <div className="lg:hidden">
-                                <ul className="space-y-6 text-base">
-                                    {menuItems.map((item, index) => (
-                                        <li key={index}>
-                                            <a
-                                                href={item.href}
-                                                className="text-muted-foreground hover:text-accent-foreground block duration-150">
-                                                <span>{item.name}</span>
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                            <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
-                                <Button
-                                    asChild
-                                    variant="outline"
-                                    size="sm">
-                                    <a href="/login">
-                                        <span>Login</span>
-                                    </a>
-                                </Button>
-                                <Button
-                                    asChild
-                                    size="sm">
-                                    <a href="/signup">
-                                        <span>Sign Up</span>
-                                    </a>
-                                </Button>
-                            </div>
-                        </div>
-                    </motion.div>
-                </div>
-            </nav>
-        </header>
-    )
-}
-
-// The inline fallback logo component has been moved to BrandLogo.
