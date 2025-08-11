@@ -146,116 +146,33 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* Story */}
-      <section className="bg-gray-50 py-16 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-                Our Story
-              </h2>
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                Oral Nexa was founded in 2020 by a team of dental professionals and technology experts 
-                who recognized the need for better practice management solutions. After experiencing 
-                firsthand the challenges of running dental practices with outdated systems, we set out 
-                to create something better.
-              </p>
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                What started as a small startup has grown into a trusted partner for thousands of 
-                dental practices across the country. Our journey has been driven by one simple belief: 
-                dental professionals deserve technology that works as hard as they do.
-              </p>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                Today, we continue to innovate and expand our platform, always keeping the needs of 
-                dental professionals and their patients at the heart of everything we do.
-              </p>
-            </div>
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Key Milestones</h3>
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <div className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1">2020</div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Company Founded</h4>
-                    <p className="text-gray-600 text-sm">Oral Nexa launched with our first practice management solution</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <div className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1">2021</div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">1,000+ Practices</h4>
-                    <p className="text-gray-600 text-sm">Reached our first major milestone of 1,000 dental practices</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <div className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1">2023</div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">AI Integration</h4>
-                    <p className="text-gray-600 text-sm">Launched AI-powered scheduling and patient management features</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <div className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1">2025</div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">10,000+ Practices</h4>
-                    <p className="text-gray-600 text-sm">Now serving over 10,000 dental practices nationwide</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+             {/* Story */}
+       <section className="bg-gray-50 py-16 sm:py-20">
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <div className="max-w-4xl mx-auto">
+             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6 text-center">
+               Our Story
+             </h2>
+             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+               Oral Nexa was founded in 2024 by a team of dental professionals and technology experts 
+               who recognized the need for better practice management solutions. After experiencing 
+               firsthand the challenges of running dental practices with outdated systems, we set out 
+               to create something better.
+             </p>
+             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+               What started as a small startup has grown into a trusted partner for thousands of 
+               dental practices across the country. Our journey has been driven by one simple belief: 
+               dental professionals deserve technology that works as hard as they do.
+             </p>
+             <p className="text-lg text-gray-600 leading-relaxed">
+               Today, we continue to innovate and expand our platform, always keeping the needs of 
+               dental professionals and their patients at the heart of everything we do.
+             </p>
+           </div>
+         </div>
+       </section>
 
-      {/* Team */}
-      <section className="bg-white py-16 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-              Meet Our Team
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Our diverse team brings together expertise in dentistry, technology, and business to 
-              create the best possible solutions for dental practices.
-            </p>
-          </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center">
-                <Users className="h-16 w-16 text-gray-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Dr. Sarah Chen</h3>
-              <p className="text-blue-600 mb-2">CEO & Co-Founder</p>
-              <p className="text-gray-600 text-sm">
-                Former practicing dentist with 15+ years of experience in dental practice management.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center">
-                <Users className="h-16 w-16 text-gray-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Michael Rodriguez</h3>
-              <p className="text-blue-600 mb-2">CTO & Co-Founder</p>
-              <p className="text-gray-600 text-sm">
-                Technology leader with expertise in healthcare software and AI applications.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center">
-                <Users className="h-16 w-16 text-gray-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Dr. Emily Johnson</h3>
-              <p className="text-blue-600 mb-2">Head of Product</p>
-              <p className="text-gray-600 text-sm">
-                Dental professional turned product manager, ensuring our solutions meet real practice needs.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* CTA */}
       <section className="bg-blue-600 py-16 sm:py-20">
