@@ -719,9 +719,14 @@ export function HeroSection() {
 
             {/* Bottom Footer */}
             <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col lg:flex-row justify-between items-center gap-4">
-              <p className="text-gray-400 text-sm text-center lg:text-left">
-                © 2025 Oral Nexa. All rights reserved.
-              </p>
+              <div className="text-center lg:text-left">
+                <p className="text-gray-400 text-sm">
+                  © 2025 Oral Nexa. All rights reserved.
+                </p>
+                <p className="text-gray-500 text-xs mt-1">
+                  Built by <a href="https://heliumpromotion.online/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 transition-colors duration-300">Helium Promotion</a> • SaaS product owned by Helium Promotion
+                </p>
+              </div>
               <div className="flex flex-wrap justify-center lg:justify-end gap-4 lg:gap-6 text-sm">
                 <a href="#privacy" className="text-gray-400 hover:text-white transition-colors duration-300">Privacy Policy</a>
                 <a href="#terms" className="text-gray-400 hover:text-white transition-colors duration-300">Terms of Service</a>
