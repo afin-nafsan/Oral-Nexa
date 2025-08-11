@@ -2,30 +2,15 @@ import React from 'react';
 import { blogPosts } from './blogData';
 import { ImageWithFallback } from './ImageWithFallback';
 import { Link } from 'react-router-dom';
-import { BrandLogo } from '@/components/ui/brand-logo';
+import { SharedNavigation } from '@/components/ui/shared-navigation';
 
 export default function BlogList() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <a href="/" className="flex items-center space-x-2">
-              <BrandLogo height={60} className="scale-125 origin-left" />
-            </a>
-            <a 
-              href="/" 
-              className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
-            >
-              ← Back to Home
-            </a>
-          </div>
-        </div>
-      </div>
+         <div className="min-h-screen bg-gray-50">
+       <SharedNavigation />
 
-      {/* Hero Section */}
-      <div className="bg-blue-600 text-white py-16 sm:py-20">
+             {/* Hero Section */}
+               <div className="bg-blue-600 text-white py-16 sm:py-20 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
             Dental Practice Blog

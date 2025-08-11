@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { blogPosts } from './blogData';
 import { ImageWithFallback } from './ImageWithFallback';
-import { BrandLogo } from '@/components/ui/brand-logo';
+import { SharedNavigation } from '@/components/ui/shared-navigation';
 
 export default function BlogDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -11,24 +11,9 @@ export default function BlogDetail() {
   if (!post) {
     return (
       <div className="min-h-screen bg-gray-50">
-        {/* Header */}
-        <div className="bg-white shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div className="flex items-center justify-between">
-              <a href="/" className="flex items-center space-x-2">
-                <BrandLogo height={60} className="scale-125 origin-left" />
-              </a>
-              <a 
-                href="/" 
-                className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
-              >
-                ← Back to Home
-              </a>
-            </div>
-          </div>
-        </div>
+        <SharedNavigation />
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center mt-16">
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Post Not Found</h1>
           <p className="text-gray-600 mb-8">The blog post you're looking for doesn't exist.</p>
           <Link 
@@ -42,36 +27,14 @@ export default function BlogDetail() {
     );
   }
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <a href="/" className="flex items-center space-x-2">
-              <BrandLogo height={60} className="scale-125 origin-left" />
-            </a>
-            <a 
-              href="/" 
-              className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
-            >
-              ← Back to Home
-            </a>
-          </div>
-        </div>
-      </div>
+      return (
+      <div className="min-h-screen bg-gray-50">
+        <SharedNavigation />
 
       {/* Article Content */}
-      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 mt-16">
         {/* Article Header */}
         <header className="mb-12">
-          <Link 
-            to="/blog" 
-            className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium transition-colors mb-6"
-          >
-            ← Back to all posts
-          </Link>
-          
           <div className="mb-6">
             <p className="text-sm text-blue-600 font-semibold mb-2">
               {new Date(post.date).toLocaleDateString()} • By {post.author}
