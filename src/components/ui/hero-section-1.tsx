@@ -567,63 +567,7 @@ export function HeroSection() {
            </div>
          </section>
 
-         {/* Partners Section */}
-         <section id="partners" className="bg-background py-16 sm:py-20">
-           <div className="mx-auto max-w-7xl px-4 sm:px-6">
-             <div className="text-center mb-12 sm:mb-16">
-               <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-                 Our Partners
-               </h2>
-               <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto px-4 sm:px-0">
-                 We work with leading dental organizations and technology partners to deliver the best solutions.
-               </p>
-             </div>
 
-             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
-               <div className="text-center">
-                 <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-lg flex items-center justify-center">
-                   <span className="text-2xl font-bold text-gray-600">DentalTech</span>
-                 </div>
-                 <h3 className="font-semibold text-foreground mb-2">DentalTech Solutions</h3>
-                 <p className="text-sm text-muted-foreground">Leading dental equipment manufacturer</p>
-               </div>
-
-               <div className="text-center">
-                 <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-lg flex items-center justify-center">
-                   <span className="text-2xl font-bold text-gray-600">MedSoft</span>
-                 </div>
-                 <h3 className="font-semibold text-foreground mb-2">MedSoft Systems</h3>
-                 <p className="text-sm text-muted-foreground">Healthcare software integration</p>
-               </div>
-
-               <div className="text-center">
-                 <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-lg flex items-center justify-center">
-                   <span className="text-2xl font-bold text-gray-600">CloudDent</span>
-                 </div>
-                 <h3 className="font-semibold text-foreground mb-2">CloudDent Labs</h3>
-                 <p className="text-sm text-muted-foreground">Cloud infrastructure partner</p>
-               </div>
-
-               <div className="text-center">
-                 <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-lg flex items-center justify-center">
-                   <span className="text-2xl font-bold text-gray-600">SecureMed</span>
-                 </div>
-                 <h3 className="font-semibold text-foreground mb-2">SecureMed</h3>
-                 <p className="text-sm text-muted-foreground">Security and compliance</p>
-               </div>
-             </div>
-
-             <div className="text-center mt-12">
-               <h3 className="text-xl sm:text-2xl font-semibold text-foreground mb-4">Become a Partner</h3>
-               <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                 Interested in partnering with Oral Nexa? We're always looking for innovative companies to collaborate with.
-               </p>
-               <Button size="lg" variant="outline">
-                 Partner With Us
-               </Button>
-             </div>
-           </div>
-         </section>
 
         {/* Footer */}
         <footer className="bg-gray-900 text-white py-12 sm:py-16 lg:py-20">
@@ -718,11 +662,7 @@ export function HeroSection() {
                         <span className="group-hover:translate-x-1 transition-transform duration-300">Contact</span>
                       </a>
                     </li>
-                    <li>
-                      <a href="#partners" onClick={(e) => handleFooterClick('#partners', e)} className="hover:text-white transition-colors duration-300 flex items-center group">
-                        <span className="group-hover:translate-x-1 transition-transform duration-300">Partners</span>
-                      </a>
-                    </li>
+                    
                 </ul>
               </div>
 
