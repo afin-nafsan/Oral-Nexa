@@ -7,14 +7,27 @@ import { Button } from '@/components/ui/button';
 
 const menuItems = [
     { name: 'Home', href: '/' },
-    { name: 'Features', href: '/#features' },
-    { name: 'Pricing', href: '/#pricing' },
+    { name: 'Features', href: '#features' },
+    { name: 'Pricing', href: '#pricing' },
     { name: 'Blog', href: '/blog' },
     { name: 'About', href: '/about' },
 ];
 
 export const SharedNavigation = () => {
     const [menuState, setMenuState] = React.useState(false);
+
+    const handleNavClick = (href: string, e: React.MouseEvent) => {
+        if (href.startsWith('#')) {
+            e.preventDefault();
+            const element = document.querySelector(href);
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    };
 
     return (
         <header>
@@ -47,6 +60,7 @@ export const SharedNavigation = () => {
                                         <li key={index}>
                                             <a
                                                 href={item.href}
+                                                onClick={(e) => handleNavClick(item.href, e)}
                                                 className="text-muted-foreground hover:text-accent-foreground block duration-150">
                                                 <span>{item.name}</span>
                                             </a>
@@ -63,6 +77,7 @@ export const SharedNavigation = () => {
                                         <li key={index}>
                                             <a
                                                 href={item.href}
+                                                onClick={(e) => handleNavClick(item.href, e)}
                                                 className="text-muted-foreground hover:text-accent-foreground block duration-150">
                                                 <span>{item.name}</span>
                                             </a>
